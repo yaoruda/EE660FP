@@ -4,6 +4,7 @@ import cuml, cupy
 from sklearn.metrics import log_loss
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.tree import DecisionTreeClassifier
+from cuml.ensemble import RandomForestClassifier as cuRFC
 
 """
 1. SVC
@@ -66,14 +67,11 @@ class AdaBoost:
             if self.y_train[this_target_col_name].values.sum() < 5:
                 self.y_pred[:, i] = np.zeros(len(self.X_val))
             else:
-                self.model = AdaBoostClassifier(
-                    DecisionTreeClassifier(max_depth=1),
-                    algorithm="SAMME",
-                    n_estimators=200
-                )
+                self.model = cuRFC(max_features=1.0,
+                   n_bins=8,
+                   n_estimators=40)
                 self.model.fit(self.X_train[self.features], self.y_train[this_target_col_name])
-                self.y_pred[:, i] = cupy.asnumpy(self.model.predict_proba(self.X_val[self.features]).values)[:,
-                                    1]
+                self.y_pred[:, i] = cupy.asnumpy(self.model.predict_proba(self.X_val[self.features]).values)[:, 1]
         print('Training Finish.')
 
 
