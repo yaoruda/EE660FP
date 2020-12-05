@@ -9,7 +9,7 @@ data_cls = Data()
 # load data
 X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name = data_cls.Dataset_Methodology()
 
-model = '1-2'
+model = '1-3'
 # training model
 if model=='1-1':
 # (1.1) SVC with original features
@@ -24,7 +24,7 @@ if model=='1-1':
 if model=='1-2':
 # (1.2) SVC with PCA features
     # preprocessing
-    n_component = 0.8
+    n_component = 300
     X_train = preprocess_cls.PCA(X_train, features, n_component)
     X_val = preprocess_cls.PCA(X_val, features, n_component)
     X_test = preprocess_cls.PCA(X_test, features, n_component)
@@ -35,10 +35,9 @@ if model=='1-2':
 if model=='1-3':
 # (1.3) SVC with statistic features
     # preprocessing
-    n_component = 0.8
-    X_train = preprocess_cls.PCA(X_train, n_component)
-    X_val = preprocess_cls.PCA(X_val, n_component)
-    X_test = preprocess_cls.PCA(X_test, n_component)
+    X_train, features = preprocess_cls.feature_statistic(X_train)
+    X_val, features = preprocess_cls.feature_statistic(X_val)
+    X_test, features = preprocess_cls.feature_statistic(X_test)
     svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
     svc.SVC_train()
     svc.SVC_validation()
