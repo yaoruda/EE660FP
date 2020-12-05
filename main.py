@@ -16,6 +16,7 @@ model = 'SVC'
 # kernels = ['poly', 'rbf', 'sigmoid']
 kernels = ['rbf']
 
+
 all_result = {}
 if model=='SVC':
 # (1.1) SVC with original features
@@ -23,15 +24,16 @@ if model=='SVC':
     # X_train = preprocess_cls.Standard(X_train)
     # X_val = preprocess_cls.Standard(X_val)
     # X_test = preprocess_cls.Standard(X_test)
-    result = {}
-    for k in kernels:
-        svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
-        svc.SVC_train(k)
-        r = svc.SVC_validation()
-        result[k] = r
-    print(k)
-    print(result)
-    all_result['1.1'] = result
+    if False:
+        result = {}
+        for k in kernels:
+            svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
+            svc.SVC_train(k)
+            r = svc.SVC_validation()
+            result[k] = r
+        print(k)
+        print(result)
+        all_result['1.1'] = result
 
 # if model=='1-2':
 # (1.2) SVC with PCA features
@@ -39,9 +41,9 @@ if model=='SVC':
     result = {}
     n_component = [0.5, 0.9]
     for n_c in n_component:
-        X_train = preprocess_cls.PCA(X_train, features, n_component)
-        X_val = preprocess_cls.PCA(X_val, features, n_component)
-        X_test = preprocess_cls.PCA(X_test, features, n_component)
+        X_train = preprocess_cls.PCA(X_train, features, n_c)
+        X_val = preprocess_cls.PCA(X_val, features, n_c)
+        X_test = preprocess_cls.PCA(X_test, features, n_c)
 
         for k in kernels:
             svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
