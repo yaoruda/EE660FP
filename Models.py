@@ -15,7 +15,7 @@ class SVC:
         self.features = features
         self.targets_scored_col_name = targets_scored_col_name
 
-    def SVC_train(self, kernel):
+    def SVC_train(self):
         print('SVC Training:')
         # training SVM for each scored label
         self.y_pred = np.zeros((self.X_val.shape[0], len(self.targets_scored_col_name)))
@@ -26,7 +26,7 @@ class SVC:
                 self.y_pred[:, i] = np.zeros(len(self.X_val))
             #         print(f"111{this_y_pred.shape}")
             else:
-                self.svc_model = cuml.SVC(kernel=kernel, C=100, cache_size=5000, probability=True)
+                self.svc_model = cuml.SVC(C=100, cache_size=5000, probability=True)
                 self.svc_model.fit(self.X_train[self.features], self.y_train[this_target_col_name])
                 self.y_pred[:, i] = cupy.asnumpy(self.svc_model.predict_proba(self.X_val[self.features]).values)[:, 1]
         print('Training Finish.')
