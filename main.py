@@ -11,12 +11,13 @@ X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_nam
 
 
 # training model
-model = '1-3'
+model = 'SVC'
 
 # (1) SVC
 kernels = ['linear', 'poly', 'rbf', 'sigmoid']
 
-if model=='1-1':
+all_result = {}
+if model=='SVC':
 # (1.1) SVC with original features
     # preprocessing
     X_train = preprocess_cls.Standard(X_train)
@@ -28,9 +29,11 @@ if model=='1-1':
         svc.SVC_train(k)
         r = svc.SVC_validation()
         result[k] = r
+    print(k)
     print(result)
+    all_result['1.1'] = result
 
-if model=='1-2':
+# if model=='1-2':
 # (1.2) SVC with PCA features
     # preprocessing
     n_component = 300
@@ -43,9 +46,11 @@ if model=='1-2':
         svc.SVC_train(k)
         r = svc.SVC_validation()
         result[k] = r
+    print(k)
     print(result)
+    all_result['1.2'] = result
 
-if model=='1-3':
+# if model=='1-3':
 # (1.3) SVC with statistic features
     # preprocessing
     X_train, features = preprocess_cls.feature_statistic(X_train)
@@ -57,7 +62,10 @@ if model=='1-3':
         svc.SVC_train(k)
         r = svc.SVC_validation()
         result[k] = r
+    print(k)
     print(result)
+    all_result['1.3'] = result
+    print(all_result)
 
 if model=='2-1':
 # (2) AdaBoost with original features
