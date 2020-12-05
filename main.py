@@ -20,9 +20,9 @@ all_result = {}
 if model=='SVC':
 # (1.1) SVC with original features
     # preprocessing
-    X_train = preprocess_cls.Standard(X_train)
-    X_val = preprocess_cls.Standard(X_val)
-    X_test = preprocess_cls.Standard(X_test)
+    # X_train = preprocess_cls.Standard(X_train)
+    # X_val = preprocess_cls.Standard(X_val)
+    # X_test = preprocess_cls.Standard(X_test)
     result = {}
     for k in kernels:
         svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
