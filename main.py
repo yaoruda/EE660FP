@@ -34,7 +34,7 @@ if model=='SVC':
 # (1.2) SVC with PCA features
     # preprocessing
     result = {}
-    n_component = [0.7]
+    n_component = [0.9]
     for n_c in n_component:
         this_X_train, new_features = preprocess_cls.PCA(X_train, features, n_c)
         this_X_val, new_features = preprocess_cls.PCA(X_val, features, n_c)
