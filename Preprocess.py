@@ -33,10 +33,10 @@ class Preprocess:
     """
     2. apply PCA for the features
     """
-    def PCA(self, X, n_components):
+    def PCA(self, X, cols, n_components):
         pca = cuml.PCA(n_components=n_components)
-        pca.fit(X)
-        X = pca.transform(X)
+        pca.fit(X[cols])
+        X = pca.transform(X[cols])
         print(f'PCA number of used components: {len(pca.explained_variance_ratio_)}')
 
         return X

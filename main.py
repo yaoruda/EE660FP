@@ -25,9 +25,9 @@ if model=='1-2':
 # (1.2) SVC with PCA features
     # preprocessing
     n_component = 0.8
-    X_train = preprocess_cls.PCA(X_train, n_component)
-    X_val = preprocess_cls.PCA(X_val, n_component)
-    X_test = preprocess_cls.PCA(X_test, n_component)
+    X_train = preprocess_cls.PCA(X_train, features, n_component)
+    X_val = preprocess_cls.PCA(X_val, features, n_component)
+    X_test = preprocess_cls.PCA(X_test, features, n_component)
     svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
     svc.SVC_train()
     svc.SVC_validation()
