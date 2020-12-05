@@ -13,22 +13,21 @@ X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_nam
 model = 'SVC'
 
 # (1) SVC
-# kernels = ['poly', 'rbf', 'sigmoid']
-kernels = ['rbf']
+kernels = ['poly', 'sigmoid']
+# kernels = ['rbf']
 
 all_result = {}
 if model=='SVC':
 # (1.1) SVC with original features
-    if False:
-        result = {}
-        for k in kernels:
-            svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
-            svc.SVC_train(k)
-            r = svc.SVC_validation()
-            result[k] = r
-        print(k)
-        print(result)
-        all_result['1.1'] = result
+    result = {}
+    for k in kernels:
+        svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
+        svc.SVC_train(k)
+        r = svc.SVC_validation()
+        result[k] = r
+    print(k)
+    print(result)
+    all_result['1.1'] = result
 
 # if model=='1-2':
 # (1.2) SVC with PCA features
