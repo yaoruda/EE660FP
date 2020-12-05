@@ -24,11 +24,12 @@ class Preprocess:
     1. Standard the data use 0 mean and standard variance
     """
     def Standard(self, X):
+        X = X.to_pandas()
         scaler = StandardScaler()
         scaler.fit(X)
         X = scaler.transform(X)
 
-        return X
+        return cudf.from_pandas(X)
 
     """
     2. apply PCA for the features
