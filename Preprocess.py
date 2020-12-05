@@ -9,7 +9,7 @@ from sklearn import svm
 from sklearn.svm import SVC
 import cuml, cudf, cupy
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+from sklearn.decomposition import PCA as sk_PCA
 from tqdm import tqdm
 from sklearn.model_selection import GridSearchCV
 from sklearn.multiclass import OneVsRestClassifier
@@ -36,9 +36,10 @@ class Preprocess:
     """
     def PCA(self, X, cols, n_components):
         X = X.to_pandas()
-        pca = PCA(n_components=n_components)
+        pca = sk_PCA(n_components=n_components)
         pca.fit(X[cols])
         X = pca.transform(X[cols])
+        X = pd.DataFrame(X)
         print(f'PCA number of used components: {len(pca.explained_variance_ratio_)}')
 
         return cudf.from_pandas(X)
