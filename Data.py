@@ -7,10 +7,10 @@ class Data:
         pass
 
     def Dataset_Methodology(self):
-        train_features_df = read_csv('./lish-moa/train_features.csv')
-        targets_scored_df = read_csv('./lish-moa/train_targets_scored.csv')
-        targets_nonscored_df = read_csv('./lish-moa/train_targets_nonscored.csv')
-        test_df = read_csv('./lish-moa/test_features.csv')  # not use here (just for future kaggle competition)
+        train_features_df = read_csv('../lish-moa/train_features.csv')
+        targets_scored_df = read_csv('../lish-moa/train_targets_scored.csv')
+        targets_nonscored_df = read_csv('../lish-moa/train_targets_nonscored.csv')
+        test_df = read_csv('../lish-moa/test_features.csv')  # not use here (just for future kaggle competition)
 
         gene_features = [col for col in train_features_df.columns if col.startswith('g-')]
         cell_features = [col for col in train_features_df.columns if col.startswith('c-')]
