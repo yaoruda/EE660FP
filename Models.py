@@ -48,18 +48,19 @@ class SVC:
         self.test_loss = log_loss(cupy.asnumpy(y_real), self.y_pred)
         print(f'ACC{self.test_acc}')
         print(f'Loss{self.test_loss}')
+        return [self.test_acc, self.test_loss]
 
 """
-2. Ada
+2. Random Forest
 """
-class AdaBoost:
+class RandomForest:
     def __init__(self, X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name):
         self.X_train, self.X_val, self.X_test, self.y_train, self.y_val, self.y_test = X_train, X_val, X_test, y_train, y_val, y_test
         self.features = features
         self.targets_scored_col_name = targets_scored_col_name
 
-    def AdaBoost_train(self, n_estimators, max_depth):
-        print('AdaBoost Training:')
+    def RandomForest_train(self, n_estimators):
+        print('Random Forest Training:')
         # training AdaBoost for each scored label
         self.y_pred = np.zeros((self.X_val.shape[0], len(self.targets_scored_col_name)))
         for i in tqdm(range(len(self.targets_scored_col_name))):
@@ -69,8 +70,8 @@ class AdaBoost:
                 self.y_pred[:, i] = np.zeros(len(self.X_val))
             else:
                 self.model = cuRFC(
-                    n_estimators=40,  # Number of trees in the forest
-                    max_depth=8,  # Maximum tree depth
+                    n_estimators=n_estimators,  # Number of trees in the forest
+                    max_depth=16,  # Maximum tree depth
                     max_features='auto',  # Ratio of number of features (columns) to consider per node split
                 )
                 self.model.fit(self.X_train[self.features], self.y_train[this_target_col_name])
@@ -78,7 +79,7 @@ class AdaBoost:
         print('Training Finish.')
 
 
-    def AdaBoost_validation(self):
+    def RandomForest_validation(self):
         print("AdaBoost Validation Result:")
         y_real = self.y_val[self.targets_scored_col_name].values
         # In multi-label classification, this is the subset accuracy which is a harsh metric since you require for each sample that each label set be correctly predicted.
@@ -86,11 +87,13 @@ class AdaBoost:
         self.loss = log_loss(cupy.asnumpy(y_real), self.y_pred)
         print(f'ACC{self.acc}')
         print(f'Loss{self.loss}')
+        return [self.acc, self.loss]
 
-    def AdaBoost_test(self):
+    def RandomForest_test(self):
         print("AdaBoost Testing Result:")
         y_real = self.y_test[self.targets_scored_col_name].values
         self.test_acc = self.model.score(self.X_test[self.features].values, y_real)
         self.test_loss = log_loss(cupy.asnumpy(y_real), self.y_pred)
         print(f'ACC{self.test_acc}')
         print(f'Loss{self.test_loss}')
+        return [self.test_acc, self.test_loss]
