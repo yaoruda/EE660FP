@@ -1,6 +1,6 @@
 from Preprocess import Preprocess
 from Data import Data
-from Models import SVC, AdaBoost
+from Models import SVC, RandomForest
 from sklearn.model_selection import train_test_split
 
 preprocess_cls = Preprocess()
