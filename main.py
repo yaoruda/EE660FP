@@ -37,11 +37,11 @@ if model=='SVC':
     n_component = [0.7]
     for n_c in n_component:
         this_X_train, new_features = preprocess_cls.PCA(X_train, features, n_c)
-        # this_X_val, new_features = preprocess_cls.PCA(X_val, features, n_c)
-        # this_X_test, new_features = preprocess_cls.PCA(X_test, features, n_c)
+        this_X_val, new_features = preprocess_cls.PCA(X_val, features, n_c)
+        this_X_test, new_features = preprocess_cls.PCA(X_test, features, n_c)
 
         for k in kernels:
-            svc = SVC(this_X_train, X_val, X_test, y_train, y_val, y_test, new_features, targets_scored_col_name)
+            svc = SVC(this_X_train, this_X_val, this_X_test, y_train, y_val, y_test, new_features, targets_scored_col_name)
             svc.SVC_train(k)
             r = svc.SVC_validation()
             result[f'{k,n_c}'] = r
