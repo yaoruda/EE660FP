@@ -7,6 +7,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn import svm
 from sklearn.svm import SVC
+import cuml
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from tqdm import tqdm
@@ -33,7 +34,7 @@ class Preprocess:
     2. apply PCA for the features
     """
     def PCA(self, X, n_components):
-        pca = PCA(n_components=n_components)
+        pca = cuml.PCA(n_components=n_components)
         pca.fit(X)
         X = pca.transform(X)
         print(f'PCA number of used components: {len(pca.explained_variance_ratio_)}')
