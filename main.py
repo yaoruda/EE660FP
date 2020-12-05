@@ -9,7 +9,11 @@ data_cls = Data()
 # load data
 X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name = data_cls.Dataset_Methodology()
 
+svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
+svc.SVC_train('linear')
+r = svc.SVC_validation()
 
+print('OK')
 # training model
 model = 'SVC'
 
