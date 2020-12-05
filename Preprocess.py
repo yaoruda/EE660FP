@@ -41,7 +41,7 @@ class Preprocess:
         X = pca.transform(X[cols])
         X = pd.DataFrame(X)
         print(f'PCA number of used components: {len(pca.explained_variance_ratio_)}')
-        features = range(len(pca.explained_variance_ratio_))
+        features = list(np.arange(len(pca.explained_variance_ratio_)))
 
         return cudf.from_pandas(X), features
 
