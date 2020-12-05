@@ -36,18 +36,20 @@ if model=='SVC':
 # if model=='1-2':
 # (1.2) SVC with PCA features
     # preprocessing
-    n_component = 300
-    X_train = preprocess_cls.PCA(X_train, features, n_component)
-    X_val = preprocess_cls.PCA(X_val, features, n_component)
-    X_test = preprocess_cls.PCA(X_test, features, n_component)
     result = {}
-    for k in kernels:
-        svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
-        svc.SVC_train(k)
-        r = svc.SVC_validation()
-        result[k] = r
-    print(k)
-    print(result)
+    n_component = [0.5, 0.9]
+    for n_c in n_component:
+        X_train = preprocess_cls.PCA(X_train, features, n_component)
+        X_val = preprocess_cls.PCA(X_val, features, n_component)
+        X_test = preprocess_cls.PCA(X_test, features, n_component)
+
+        for k in kernels:
+            svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
+            svc.SVC_train(k)
+            r = svc.SVC_validation()
+            result[f'{k,n_c}'] = r
+        print(k)
+        print(result)
     all_result['1.2'] = result
 
 # if model=='1-3':
