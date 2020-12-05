@@ -27,7 +27,7 @@ class SVC:
                 self.svc_model = cuml.SVC(C=100, cache_size=5000, probability=True)
                 self.svc_model.fit(self.X_train[self.features], self.y_train[this_target_col_name])
                 self.y_pred[:, i] = cupy.asnumpy(self.svc_model.predict_proba(self.X_val[self.features]).values)[:, 1]
-         print("Training Finish.")
+         print('Training Finish.')
 
     def SVC_validation(self):
         print("SVC Validation Result:")
@@ -102,4 +102,4 @@ def SVC_all(X_raw, y_raw, kernel_values, C_values):
     print(log_loss(y_val, y_pred))
     print(clf.score(X_val, y_val))
 
-SVC_all(X_raw, y_raw, ['rbf'], [5])
+# SVC_all(X_raw, y_raw, ['rbf'], [5])
