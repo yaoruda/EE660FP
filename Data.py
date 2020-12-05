@@ -1,4 +1,4 @@
-from pandas import read_csv
+from cudf import read_csv
 from cuml.preprocessing.model_selection import train_test_split
 
 class Data:
