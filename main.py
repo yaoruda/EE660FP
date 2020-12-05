@@ -8,18 +8,42 @@ data_cls = Data()
 
 # load data
 X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name = data_cls.Dataset_Methodology()
-# preprocessing
-# X_train = preprocess_cls.preprocessing_standard_scaler(X_train)
-# X_val = preprocess_cls.preprocessing_standard_scaler(X_val)
-# X_test = preprocess_cls.preprocessing_standard_scaler(X_test)
+
+model = '1-2'
 # training model
-if False:
-# (1) SVC with original features
+if model=='1-1':
+# (1.1) SVC with original features
+    # preprocessing
+    X_train = preprocess_cls.Standard(X_train)
+    X_val = preprocess_cls.Standard(X_val)
+    X_test = preprocess_cls.Standard(X_test)
     svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
     svc.SVC_train()
     svc.SVC_validation()
 
-if True:
+if model=='1-2':
+# (1.2) SVC with PCA features
+    # preprocessing
+    n_component = 0.8
+    X_train = preprocess_cls.PCA(X_train, n_component)
+    X_val = preprocess_cls.PCA(X_val, n_component)
+    X_test = preprocess_cls.PCA(X_test, n_component)
+    svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
+    svc.SVC_train()
+    svc.SVC_validation()
+
+if model=='1-3':
+# (1.3) SVC with statistic features
+    # preprocessing
+    n_component = 0.8
+    X_train = preprocess_cls.PCA(X_train, n_component)
+    X_val = preprocess_cls.PCA(X_val, n_component)
+    X_test = preprocess_cls.PCA(X_test, n_component)
+    svc = SVC(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
+    svc.SVC_train()
+    svc.SVC_validation()
+
+if model=='2-1':
 # (2) AdaBoost with original features
     svc = AdaBoost(X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name)
     svc.AdaBoost_train()

@@ -19,6 +19,26 @@ class Preprocess:
     def __init__(self):
         pass
 
+    """
+    1. Standard the data use 0 mean and standard variance
+    """
+    def Standard(self, X):
+        scaler = StandardScaler()
+        scaler.fit(X)
+        X = scaler.transform(X)
+
+        return X
+
+    """
+    2. apply PCA for the features
+    """
+    def PCA(self, X, n_components):
+        pca = PCA(n_components=n_components)
+        pca.fit(X)
+        X = pca.transform(X)
+        print(f'PCA number of used components: {len(pca.explained_variance_ratio_)}')
+
+        return X
 
     """
     reduce data by different origin features:
@@ -64,12 +84,7 @@ class Preprocess:
         return X, y
 
 
-    def preprocessing_standard_scaler(self, X):
-        scaler = StandardScaler()
-        scaler.fit(X)
-        X = scaler.transform(X)
 
-        return X
 
 
     def feature_statistic(self, df):

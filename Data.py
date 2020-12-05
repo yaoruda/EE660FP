@@ -32,6 +32,9 @@ class Data:
             data['cp_time'] = data['cp_time']/72
             data['cp_dose'] = 1.0 * (data['cp_dose'] == 'D1')  # D1->1, D2->0
 
+        # use float32 dtype for GPU
+        train_features_df[features] = train_features_df[features].astype('float32')
+
         # split test set
         X_rest_df, X_test, y_rest_df, y_test = train_test_split(train_features_df, targets_df, train_size=0.9)
 

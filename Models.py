@@ -57,7 +57,7 @@ class AdaBoost:
         self.features = features
         self.targets_scored_col_name = targets_scored_col_name
 
-    def AdaBoost_train(self):
+    def AdaBoost_train(self, n_estimators, max_depth):
         print('AdaBoost Training:')
         # training AdaBoost for each scored label
         self.y_pred = np.zeros((self.X_val.shape[0], len(self.targets_scored_col_name)))
@@ -67,9 +67,11 @@ class AdaBoost:
             if self.y_train[this_target_col_name].values.sum() < 5:
                 self.y_pred[:, i] = np.zeros(len(self.X_val))
             else:
-                self.model = cuRFC(max_features=1.0,
-                   n_bins=8,
-                   n_estimators=40)
+                self.model = cuRFC(
+                    n_estimators=40,  # Number of trees in the forest
+                    max_depth=8,  # Maximum tree depth
+                    max_features='auto',  # Ratio of number of features (columns) to consider per node split
+                )
                 self.model.fit(self.X_train[self.features], self.y_train[this_target_col_name])
                 self.y_pred[:, i] = cupy.asnumpy(self.model.predict_proba(self.X_val[self.features]).values)[:, 1]
         print('Training Finish.')
