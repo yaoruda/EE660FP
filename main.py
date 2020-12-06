@@ -2,11 +2,15 @@ from Preprocess import Preprocess
 from Data import Data
 from Models import SVC, RandomForest
 
-
+"""
+The project uses cuml, cupy and cudf as the basic libraries.
+You can install these libraries from website "https://rapids.ai/start.html".
+Also, these libraries required using GPU.
+"""
 def training(model_name, X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name):
     # (1) SVC
     result = {}
-    kernels = ['rbf', 'poly', 'sigmoid']
+    kernels = ['rbf', 'sigmoid']  # linear and poly are not converge, training them can have error on training process.
     if model_name=='SVC':
     # (1.1) SVC with original features
         for k in kernels:

@@ -35,9 +35,13 @@ class Preprocess:
 
     """
     3. extract some statistic features from data
+    ****************************************************
+    thanks to user konbuiyon for the following function 
+    from https://www.kaggle.com/kento1993/nn-svm-tabnet-xgb-with-pca-cnn-stacking-without-pp/notebook
+    ****************************************************
     """
     def feature_statistic(self, df):
-        # code cite from: https://www.kaggle.com/kento1993/nn-svm-tabnet-xgb-with-pca-cnn-stacking-without-pp/notebook
+        # code cite from:
         features_g = list([x for x in df.columns if x.startswith("g-")])
         features_c = list([x for x in df.columns if x.startswith("c-")])
         df = df.to_pandas()

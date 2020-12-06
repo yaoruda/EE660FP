@@ -1,6 +1,12 @@
 from cudf import read_csv
 from cuml.preprocessing.model_selection import train_test_split
 
+"""
+****************************************************
+the following "Dataset_Methodology" function was modified from user Ahmet Erdem
+from https://www.kaggle.com/aerdem4/moa-xgb-svm-solution
+****************************************************
+"""
 class Data:
 
     def __init__(self):
