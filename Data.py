@@ -7,10 +7,10 @@ class Data:
         pass
 
     def Dataset_Methodology(self):
-        train_features_df = read_csv('../lish-moa/train_features.csv')
-        targets_scored_df = read_csv('../lish-moa/train_targets_scored.csv')
-        targets_nonscored_df = read_csv('../lish-moa/train_targets_nonscored.csv')
-        test_df = read_csv('../lish-moa/test_features.csv')  # not use here (just for future kaggle competition)
+        train_features_df = read_csv('../data/train_features.csv')
+        targets_scored_df = read_csv('../data/train_targets_scored.csv')
+        targets_nonscored_df = read_csv('../data/train_targets_nonscored.csv')
+        test_df = read_csv('../data/test_features.csv')  # not use here (just for future kaggle competition)
 
         gene_features = [col for col in train_features_df.columns if col.startswith('g-')]
         cell_features = [col for col in train_features_df.columns if col.startswith('c-')]
@@ -36,9 +36,9 @@ class Data:
         train_features_df[features] = train_features_df[features].astype('float32')
 
         # split test set
-        X_rest_df, X_test, y_rest_df, y_test = train_test_split(train_features_df, targets_df, train_size=0.9)
+        X_rest_df, X_test, y_rest_df, y_test = train_test_split(train_features_df, targets_df, train_size=0.9, random_state=0)
 
         # split training and validation set
-        X_train, X_val, y_train, y_val = train_test_split(X_rest_df, y_rest_df, train_size=0.9)
+        X_train, X_val, y_train, y_val = train_test_split(X_rest_df, y_rest_df, train_size=0.9, random_state=0)
 
         return X_train, X_val, X_test, y_train, y_val, y_test, features, targets_scored_col_name

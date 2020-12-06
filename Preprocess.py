@@ -1,20 +1,8 @@
 import pandas as pd
-# from pandas import DataFrame
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import train_test_split
-from sklearn import svm
-from sklearn.svm import SVC
 import cuml, cudf, cupy
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA as sk_PCA
-from tqdm import tqdm
-from sklearn.model_selection import GridSearchCV
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.metrics import log_loss
-
 
 class Preprocess:
     def __init__(self):
